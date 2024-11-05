@@ -1,6 +1,6 @@
 " Directory for additional configuration files
 if !isdirectory(expand('~/.config/nvim/config'))
-  call mkdir(expand('~/.config/nvim/config'), 'p')
+    call mkdir(expand('~/.config/nvim/config'), 'p')
 endif
 
 " Source additional configuration files
@@ -49,6 +49,7 @@ set hlsearch             " Highlight search results
 set updatetime=300       " Faster completion (default is 4000ms)
 set signcolumn=yes       " Always show sign column to avoid text movements
 set scrolloff=8          " Keep 8 lines visible above/below the cursor
+set showtabline=2  " Always show the tab line
 
 " Colorscheme (Minimal, just to enhance readability)
 syntax enable            " Enable syntax highlighting
@@ -59,7 +60,8 @@ colorscheme desert       " A neutral colorscheme
 set noshowmode
 
 " Key mappings for NERDTree
-nnoremap &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt; " Ctrl+n toggles file explorer
+" nnoremap &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt; " Ctrl+n toggles file explorer
+nnoremap <C-n> :NERDTreeToggle<CR> " Ctrl+n toggles file explorer
 
 " Enable mouse support
 set mouse=a " Enable mouse in all modes
@@ -103,3 +105,31 @@ nnoremap K :m .-2<CR>==
 nnoremap J :m .+1<CR>==
 vnoremap K :m '<-2<CR>gv=gv
 vnoremap J :m '>+1<CR>gv=gv
+
+" Set Up Buffer Navigation with Backslash
+nnoremap <leader>bn :bnext<CR>     " Move to the next buffer
+nnoremap <leader>bp :bprev<CR>     " Move to the previous buffer
+nnoremap <leader>bd :bdelete<CR>   " Close the current buffer
+nnoremap <leader>b :enew<CR>       " Open a new empty buffer
+nnoremap <leader>r :bdelete!<CR>     " Close current buffer without saving (to manage open buffers)
+nnoremap <leader>1 :buffer 1<CR>
+nnoremap <leader>2 :buffer 2<CR>
+nnoremap <leader>3 :buffer 3<CR>
+nnoremap <leader>4 :buffer 4<CR>
+nnoremap <leader>5 :buffer 5<CR>
+nnoremap <leader>6 :buffer 6<CR>
+nnoremap <leader>7 :buffer 7<CR>
+nnoremap <leader>8 :buffer 8<CR>
+nnoremap <leader>9 :buffer 9<CR>
+
+
+" Set Up Buffer Navigation with Backslash
+nnoremap <leader>t :tabnew<CR>     " Open a new tab
+nnoremap <leader>tc :tabclose<CR>   " Close the current tab
+nnoremap <leader>tn :tabnext<CR>    " Move to the next tab
+nnoremap <leader>tp :tabprevious<CR> " Move to the previous tab
+nnoremap <leader>t1 :tabn 1<CR>
+nnoremap <leader>t2 :tabn 2<CR>
+nnoremap <leader>t3 :tabn 3<CR>
+nnoremap <leader>t4 :tabn 4<CR>
+

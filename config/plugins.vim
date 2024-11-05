@@ -16,6 +16,7 @@ Plug 'airblade/vim-gitgutter'              " Git diff in the sign column
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'                    " Fuzzy finder
 " Plug 'neoclide/coc.nvim', {'branch': 'release'} " Intellisense engine (commented out until Node.js is installed)
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Initialize plugin system
 call plug#end()
