@@ -11,13 +11,24 @@ return {
     },
 
     -- NERDTree (Consider switching to nvim-tree.lua for better Lua support)
+    -- {
+    --     'preservim/nerdtree',
+    --     keys = {
+    --         { '<C-n>', ':NERDTreeToggle<CR>', desc = 'Toggle NERDTree' }
+    --     },
+    --     config = function()
+    --         -- Add any specific NERDTree configurations here
+    --     end
+    -- },
+
+    -- Nvim Tree
     {
-        'preservim/nerdtree',
-        keys = {
-            { '<C-n>', ':NERDTreeToggle<CR>', desc = 'Toggle NERDTree' }
+        'nvim-tree/nvim-tree.lua',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons', -- Optional for file icons
         },
         config = function()
-            -- Add any specific NERDTree configurations here
+            require('plugins.configs.nvimtree').setup()
         end
     },
 
@@ -79,7 +90,7 @@ return {
     {
         'airblade/vim-gitgutter'
     },
-
+    
     -- FZF Fuzzy Finder
     {
         'junegunn/fzf.vim',
@@ -104,6 +115,27 @@ return {
         },
         config = function()
             require("plugins.configs.lsp").setup()
+        end
+    },
+
+    -- LLM Support
+    {
+        "melbaldove/llm.nvim",
+        dependencies = { 
+            "nvim-neotest/nvim-nio",
+            "nvim-lua/plenary.nvim"  -- Added Plenary as a dependency
+        },
+        config = function()
+            require("plugins.configs.llm").setup()
+        end
+    },
+
+    -- Autopairs    
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = function()
+            require('nvim-autopairs').setup()
         end
     },
 

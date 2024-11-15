@@ -7,11 +7,9 @@ M.setup = function()
         ensure_installed = {
             "lua_ls",     -- Lua
             "pyright",    -- Python
-            "tsserver",   -- TypeScript/JavaScript
             "html",       -- HTML
             "cssls",      -- CSS
-        },
-        automatic_installation = true,
+        }
     })
 
     -- nvim-cmp setup
@@ -72,7 +70,6 @@ M.setup = function()
     local servers = {
         'lua_ls',
         'pyright',
-        'tsserver',
         'html',
         'cssls'
     }
