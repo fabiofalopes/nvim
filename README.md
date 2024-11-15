@@ -8,6 +8,6 @@
 
 ---
 
-Read [vim-to-lua.md](vim-to-lua.md) for more information on the transition to Lua.
+[vim-to-lua.md](vim-to-lua.md) for more information on the transition from /nvim_backup/ to lua config.
 
 
