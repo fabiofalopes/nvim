@@ -69,17 +69,17 @@ return {
     },
 
     -- Auto Pairs
-    {
-        'jiangmiao/auto-pairs',
-        event = "InsertEnter",
-        config = function()
-            -- Basic configuration
-            vim.g.AutoPairsShortcutToggle = '<M-p>'
-            vim.g.AutoPairsShortcutFastWrap = '<M-e>'
-            vim.g.AutoPairsShortcutJump = '<M-n>'
-            vim.g.AutoPairsShortcutBackInsert = '<M-b>'
-        end
-    },
+    -- {
+    --     'jiangmiao/auto-pairs',
+    --     event = "InsertEnter",
+    --     config = function()
+    --         -- Basic configuration
+    --         vim.g.AutoPairsShortcutToggle = '<M-p>'
+    --         vim.g.AutoPairsShortcutFastWrap = '<M-e>'
+    --         vim.g.AutoPairsShortcutJump = '<M-n>'
+    --         vim.g.AutoPairsShortcutBackInsert = '<M-b>'
+    --     end
+    -- },
 
     -- Easy Commenting
     {
@@ -136,6 +136,19 @@ return {
         event = "InsertEnter",
         config = function()
             require('nvim-autopairs').setup()
+        end
+    },
+
+    -- Tidal Cycles Support
+    {
+        'tidalcycles/vim-tidal',
+        lazy = false,  -- Load immediately instead of lazy loading
+        config = function()
+            -- Add any Tidal-specific settings here
+            vim.cmd([[
+                let g:tidal_target = "terminal"
+                autocmd BufRead,BufNewFile *.tidal set filetype=tidal
+            ]])
         end
     },
 
