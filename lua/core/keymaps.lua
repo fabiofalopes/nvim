@@ -2,8 +2,8 @@
 
 local keymap = vim.keymap.set
 
--- Enable space as the leader key
-vim.g.mapleader = ' '
+-- Enable backslash (`\`) as the leader key
+vim.g.mapleader = '\\'
 
 -- Line Movement
 keymap('n', 'K', ':m .-2<CR>==', { silent = true })
@@ -12,31 +12,36 @@ keymap('v', 'K', ":m '<-2<CR>gv=gv", { silent = true })
 keymap('v', 'J', ":m '>+1<CR>gv=gv", { silent = true })
 
 -- Buffer Navigation
-keymap('n', '<leader>bn', ':bnext<CR>', { silent = true })
-keymap('n', '<leader>bp', ':bprev<CR>', { silent = true })
-keymap('n', '<leader>bd', ':bdelete<CR>', { silent = true })
---keymap('n', '<leader>b', ':enew<CR>', { silent = true })
-keymap('n', '<leader>b', vim.cmd.enew, { silent = true })  -- Using Lua function call
-keymap('n', '<leader>r', ':bdelete!<CR>', { silent = true })
-keymap('n', '<leader>1', ':buffer 1<CR>', { silent = true })
-keymap('n', '<leader>2', ':buffer 2<CR>', { silent = true })
-keymap('n', '<leader>3', ':buffer 3<CR>', { silent = true })
-keymap('n', '<leader>4', ':buffer 4<CR>', { silent = true })
-keymap('n', '<leader>5', ':buffer 5<CR>', { silent = true })
-keymap('n', '<leader>6', ':buffer 6<CR>', { silent = true })
-keymap('n', '<leader>7', ':buffer 7<CR>', { silent = true })
-keymap('n', '<leader>8', ':buffer 8<CR>', { silent = true })
-keymap('n', '<leader>9', ':buffer 9<CR>', { silent = true })
+keymap('n', '<leader>bb', ':buffers<CR>', { silent = true, desc = 'List buffers' })
+keymap('n', '<leader>bn', ':bnext<CR>', { silent = true, desc = 'Next buffer' })
+keymap('n', '<leader>bp', ':bprevious<CR>', { silent = true, desc = 'Previous buffer' })
+keymap('n', '<leader>bd', ':bdelete<CR>', { silent = true, desc = 'Delete buffer' })
+keymap('n', '<leader>bD', ':bdelete!<CR>', { silent = true, desc = 'Force delete buffer' })
+keymap('n', '<leader>b1', ':lua require("core.utils").switchBuffer(1)<CR>', { silent = true, desc = 'Buffer 1' })
+keymap('n', '<leader>b2', ':lua require("core.utils").switchBuffer(2)<CR>', { silent = true, desc = 'Buffer 2' })
+keymap('n', '<leader>b3', ':lua require("core.utils").switchBuffer(3)<CR>', { silent = true, desc = 'Buffer 3' })
+keymap('n', '<leader>b4', ':lua require("core.utils").switchBuffer(4)<CR>', { silent = true, desc = 'Buffer 4' })
+keymap('n', '<leader>b5', ':lua require("core.utils").switchBuffer(5)<CR>', { silent = true, desc = 'Buffer 5' })
+keymap('n', '<leader>b6', ':lua require("core.utils").switchBuffer(6)<CR>', { silent = true, desc = 'Buffer 6' })
+keymap('n', '<leader>b7', ':lua require("core.utils").switchBuffer(7)<CR>', { silent = true, desc = 'Buffer 7' })
+keymap('n', '<leader>b8', ':lua require("core.utils").switchBuffer(8)<CR>', { silent = true, desc = 'Buffer 8' })
+keymap('n', '<leader>b9', ':lua require("core.utils").switchBuffer(9)<CR>', { silent = true, desc = 'Buffer 9' })
 
 -- Tab Navigation
-keymap('n', '<leader>t', ':tabnew<CR>', { silent = true })
-keymap('n', '<leader>tc', ':tabclose<CR>', { silent = true })
-keymap('n', '<leader>tn', ':tabnext<CR>', { silent = true })
-keymap('n', '<leader>tp', ':tabprevious<CR>', { silent = true })
-keymap('n', '<leader>t1', ':tabn 1<CR>', { silent = true })
-keymap('n', '<leader>t2', ':tabn 2<CR>', { silent = true })
-keymap('n', '<leader>t3', ':tabn 3<CR>', { silent = true })
-keymap('n', '<leader>t4', ':tabn 4<CR>', { silent = true })
+keymap('n', '<leader>tl', ':tabs<CR>', { silent = true, desc = 'List tabs' })
+keymap('n', '<leader>tn', ':tabnext<CR>', { silent = true, desc = 'Next tab' })
+keymap('n', '<leader>tp', ':tabprevious<CR>', { silent = true, desc = 'Previous tab' })
+keymap('n', '<leader>tt', ':tabnew<CR>', { silent = true, desc = 'New tab' })
+keymap('n', '<leader>tc', ':tabclose<CR>', { silent = true, desc = 'Close tab' })
+keymap('n', '<leader>t1', ':lua require("core.utils").switchTab(1)<CR>', { silent = true, desc = 'Tab 1' })
+keymap('n', '<leader>t2', ':lua require("core.utils").switchTab(2)<CR>', { silent = true, desc = 'Tab 2' })
+keymap('n', '<leader>t3', ':lua require("core.utils").switchTab(3)<CR>', { silent = true, desc = 'Tab 3' })
+keymap('n', '<leader>t4', ':lua require("core.utils").switchTab(4)<CR>', { silent = true, desc = 'Tab 4' })
+keymap('n', '<leader>t5', ':lua require("core.utils").switchTab(5)<CR>', { silent = true, desc = 'Tab 5' })
+keymap('n', '<leader>t6', ':lua require("core.utils").switchTab(6)<CR>', { silent = true, desc = 'Tab 6' })
+keymap('n', '<leader>t7', ':lua require("core.utils").switchTab(7)<CR>', { silent = true, desc = 'Tab 7' })
+keymap('n', '<leader>t8', ':lua require("core.utils").switchTab(8)<CR>', { silent = true, desc = 'Tab 8' })
+keymap('n', '<leader>t9', ':lua require("core.utils").switchTab(9)<CR>', { silent = true, desc = 'Tab 9' })
 
 -- Create new lines above/below in normal mode
 keymap('n', '<leader>o', 'o<ESC>', { silent = true, desc = 'New line below' })

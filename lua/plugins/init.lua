@@ -149,6 +149,7 @@ return {
                 let g:tidal_target = "terminal"
                 autocmd BufRead,BufNewFile *.tidal set filetype=tidal
             ]])
+            require('plugins.configs.tidal').setup()
         end
     },
 
