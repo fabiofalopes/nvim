@@ -62,9 +62,9 @@ M.setup = function()
         vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, opts)
     end
 
-    -- LSP servers setup
+    -- LSP servers setup using new Neovim 0.11+ API
+    -- See :help lspconfig-nvim-0.11 for migration details
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
-    local lspconfig = require('lspconfig')
 
     -- Setup each LSP server
     local servers = {
@@ -73,12 +73,14 @@ M.setup = function()
         'html',
         'cssls'
     }
-    
-    for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup {
-            on_attach = on_attach,
+
+    -- Configure and enable each server using new API
+    for _, server in ipairs(servers) do
+        vim.lsp.config(server, {
             capabilities = capabilities,
-        }
+            on_attach = on_attach,
+        })
+        vim.lsp.enable(server)
     end
 end
 

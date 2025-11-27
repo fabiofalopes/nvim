@@ -1,4 +1,24 @@
+# Undo history
 undodir/
 
+# Python virtual environments
 .env
 .venv
+
+# Test files (personal testing, not part of config)
+test.tidal
+test*.lua
+*.test.lua
+
+# Backup directories (use git history instead)
+backup/
+*_backup/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor swap files
+*.swp
+*.swo
+*~

@@ -1,7 +1,19 @@
--- plugins/init.lua - Plugin Specifications for lazy.nvim
+-- plugins/init.lua
+-- Main plugin configuration - all plugins loaded
 
 return {
-    -- Treesitter
+    -- File Tree Explorer
+    {
+        'nvim-tree/nvim-tree.lua',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons', -- File icons
+        },
+        config = function()
+            require('plugins.configs.nvimtree').setup()
+        end
+    },
+
+    -- Treesitter (Syntax Highlighting)
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
@@ -10,48 +22,22 @@ return {
         end
     },
 
-    -- NERDTree (Consider switching to nvim-tree.lua for better Lua support)
-    -- {
-    --     'preservim/nerdtree',
-    --     keys = {
-    --         { '<C-n>', ':NERDTreeToggle<CR>', desc = 'Toggle NERDTree' }
-    --     },
-    --     config = function()
-    --         -- Add any specific NERDTree configurations here
-    --     end
-    -- },
-
-    -- Nvim Tree
-    {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons', -- Optional for file icons
-        },
-        config = function()
-            require('plugins.configs.nvimtree').setup()
-        end
-    },
-
-    -- OneDark Colorscheme (Lua-based)
+    -- OneDark Colorscheme
     {
         'navarasu/onedark.nvim',
         lazy = false,
         priority = 1000,
         config = function()
             require('onedark').setup {
-                style = 'darker', -- Choose from 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'
-                toggle_style_key = nil, -- Option to toggle styles
-                toggle_style_list = { 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light' },
-                transparent = false, -- Enable/disable transparent background
-                term_colors = true, -- Change terminal colors
-                ending_tildes = false, -- Show the end-of-buffer tildes
-                cmp_itemkind_reverse = false, -- Reverse item kind highlights in CMP
+                style = 'darker',
+                transparent = false,
+                term_colors = true,
             }
             require('onedark').load()
         end
     },
 
-    -- Vim-Airline
+    -- Vim-Airline (Status Line)
     {
         'vim-airline/vim-airline',
         config = function()
@@ -63,34 +49,20 @@ return {
         'vim-airline/vim-airline-themes'
     },
 
-    -- Syntax Highlighting
-    {
-        'sheerun/vim-polyglot'
-    },
-
-    -- Auto Pairs
-    -- {
-    --     'jiangmiao/auto-pairs',
-    --     event = "InsertEnter",
-    --     config = function()
-    --         -- Basic configuration
-    --         vim.g.AutoPairsShortcutToggle = '<M-p>'
-    --         vim.g.AutoPairsShortcutFastWrap = '<M-e>'
-    --         vim.g.AutoPairsShortcutJump = '<M-n>'
-    --         vim.g.AutoPairsShortcutBackInsert = '<M-b>'
-    --     end
-    -- },
-
-    -- Easy Commenting
+    -- Commenting
     {
         'tpope/vim-commentary'
     },
 
-    -- Git Gutter
+    -- Autopairs (Auto-close brackets)
     {
-        'airblade/vim-gitgutter'
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = function()
+            require('nvim-autopairs').setup()
+        end
     },
-    
+
     -- FZF Fuzzy Finder
     {
         'junegunn/fzf.vim',
@@ -100,7 +72,12 @@ return {
         end
     },
 
-    -- LSP Support
+    -- Syntax Support (may be redundant with treesitter, testing)
+    {
+        'sheerun/vim-polyglot'
+    },
+
+    -- LSP Support (Language Server Protocol)
     {
         "neovim/nvim-lspconfig",
         dependencies = {
@@ -118,33 +95,35 @@ return {
         end
     },
 
-    -- LLM Support
+    -- Git Integration
+    {
+        'airblade/vim-gitgutter'
+    },
+
+    -- Lua Utilities (dependency for many plugins)
+    {
+        'nvim-lua/plenary.nvim'
+    },
+
+    -- LLM Support (optional, requires GROQ_API_KEY)
     {
         "melbaldove/llm.nvim",
-        dependencies = { 
+        cond = vim.env.ENABLE_LLM == '1',
+        dependencies = {
             "nvim-neotest/nvim-nio",
-            "nvim-lua/plenary.nvim"  -- Added Plenary as a dependency
+            "nvim-lua/plenary.nvim"
         },
         config = function()
             require("plugins.configs.llm").setup()
         end
     },
 
-    -- Autopairs    
-    {
-        'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        config = function()
-            require('nvim-autopairs').setup()
-        end
-    },
-
-    -- Tidal Cycles Support
+    -- TidalCycles Support (optional, requires SuperCollider)
     {
         'tidalcycles/vim-tidal',
-        lazy = false,  -- Load immediately instead of lazy loading
+        ft = 'tidal',  -- Lazy-load on .tidal files
+        cond = vim.env.ENABLE_TIDAL == '1',
         config = function()
-            -- Add any Tidal-specific settings here
             vim.cmd([[
                 let g:tidal_target = "terminal"
                 autocmd BufRead,BufNewFile *.tidal set filetype=tidal
@@ -152,13 +131,4 @@ return {
             require('plugins.configs.tidal').setup()
         end
     },
-
-    -- Uncomment and configure coc.nvim if needed
-    -- {
-    --     'neoclide/coc.nvim',
-    --     branch = 'release',
-    --     config = function()
-    --         -- Coc configuration
-    --     end
-    -- }
 }
