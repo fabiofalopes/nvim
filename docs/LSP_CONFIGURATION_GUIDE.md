@@ -81,7 +81,7 @@ vim.keymap.set(...)      -- ❌ Warning: "Undefined global 'vim'"
 
 1. **lua_ls** - Lua (configured via `.luarc.json`)
 2. **pyright** - Python
-3. **ts_ls** - TypeScript/JavaScript
+3. **clangd** - C/C++
 4. **html** - HTML
 5. **cssls** - CSS
 
@@ -200,7 +200,7 @@ require('mason-lspconfig').setup({
   ensure_installed = {
     'lua_ls',
     'pyright',
-    'ts_ls',
+    'clangd',
     'html',
     'cssls',
     'new_server_name',  -- Add here
@@ -335,11 +335,11 @@ EOF
 - ✅ Import suggestions
 - ✅ Easy to set up
 
-### TypeScript (ts_ls)
-- ✅ Amazing autocomplete
-- ✅ Type checking
-- ✅ Refactoring tools
-- ✅ Works out of the box
+### C/C++ (clangd)
+- ✅ Excellent autocomplete
+- ✅ Compiler-like diagnostics
+- ✅ Code formatting (clang-format)
+- ✅ Fast and lightweight
 
 ### Haskell (hls)
 - ⚠️ Good autocomplete (when configured)
@@ -385,7 +385,7 @@ EOF
 
 **Now:**
 - ✅ Keep `.luarc.json` (helps with Lua config editing)
-- ✅ Current LSP setup works great (Lua, Python, TS, etc.)
+- ✅ Current LSP setup works great (Lua, Python, C/C++, etc.)
 - ✅ vim-tidal is good enough for TidalCycles
 
 **Future (Optional):**
