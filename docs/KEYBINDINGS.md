@@ -2,7 +2,7 @@
 
 **Config:** ~/.config/nvim  
 **Leader Key:** `<Space>` (SPACE)  
-**Last Updated:** Nov 26, 2024
+**Last Updated:** Jan 03, 2026
 
 ---
 
@@ -58,10 +58,78 @@
 
 | Key | Action | Description |
 |-----|--------|-------------|
-| `<leader>o` | New line below | Insert blank line below (stay in normal) |
-| `<leader>O` | New line above | Insert blank line above (stay in normal) |
+| `<leader>no` | New line below | Insert blank line below (stay in normal) |
+| `<leader>nO` | New line above | Insert blank line above (stay in normal) |
 | `gcc` | Toggle comment | Comment/uncomment line (vim-commentary) |
 | `gc` | Toggle comment | Comment/uncomment motion/visual (vim-commentary) |
+
+**Note:** Moved from `<leader>o/O` to `<leader>no/nO` to avoid conflict with OpenCode
+
+---
+
+## OpenCode Integration (opencode.nvim)
+
+**Requirements:**
+- OpenCode CLI installed and configured (~/.config/opencode/)
+- Tmux (for side-by-side integration)
+- snacks.nvim dependency (auto-installed)
+
+### Commands
+
+| Key | Command | Description |
+|-----|---------|-------------|
+| `<leader>ot` | `:OpenCodeToggle` | Toggle OpenCode terminal in tmux pane |
+| `<leader>oc` | `:OpenCodeAsk` | Ask OpenCode about @this (current context) |
+| `<leader>os` | `:OpenCodeSelect` | Open action selector menu |
+| `<leader>or` | `:OpenCodeReview` | Review @this for quality/bugs/performance |
+| `<leader>of` | `:OpenCodeFix` | Fix @diagnostics in current file |
+| `<leader>oe` | `:OpenCodeExplain` | Explain @this in detail |
+| `<leader>oi` | `:OpenCodeImplement` | Implement @this with examples |
+
+### Operator Mode
+
+| Key | Description |
+|-----|-------------|
+| `go{motion}` | Add motion range to OpenCode context |
+| `goo` | Add current line to OpenCode |
+| `goip` | Add inner paragraph |
+| `go3j` | Add next 3 lines |
+
+**Examples:**
+- `goip` - Send inner paragraph to OpenCode
+- `go5j` - Send next 5 lines
+- Visual select + `<leader>oc` - Ask about selection
+
+### MCP Server Integration
+
+OpenCode.nvim prompts are configured to use MCP servers:
+
+| Prompt | MCP Servers Used |
+|--------|------------------|
+| **ask** | context7 (docs), memory, arxiv, sequential_thinking, gh_grep |
+| **review** | gh_grep (best practices) |
+| **fix** | context7 (API docs) |
+| **explain** | context7, arxiv (for complex concepts) |
+| **implement** | gh_grep (examples), context7 (API docs), sequential_thinking |
+
+**Example Workflows:**
+1. Select complex function → `<leader>oe` → OpenCode uses context7 to explain framework concepts
+2. Visual select buggy code → `<leader>of` → OpenCode uses context7 for API docs, gh_grep for patterns
+3. Select stub → `<leader>oi` → OpenCode uses gh_grep for real-world examples
+
+### Settings
+
+**Auto-reload:** Files edited by OpenCode auto-reload in Neovim  
+**Permission:** OpenCode asks before editing files  
+**Provider:** Tmux (side-by-side panes)
+
+### Useful Commands
+
+| Command | Description |
+|---------|-------------|
+| `:checkhealth opencode` | Verify OpenCode.nvim setup |
+| `:OpenCodeToggle` | Toggle OpenCode terminal |
+| `:OpenCodeSelect` | Interactive action menu |
 
 ---
 
@@ -353,6 +421,9 @@
 
 ❌ **Old:** Leader key conflict (space vs backslash)  
 ✅ **New:** Consistently `<Space>`
+
+❌ **Old:** `<leader>o/O` created new lines  
+✅ **New:** Moved to `<leader>no/nO` to free `<leader>o*` tree for OpenCode
 
 ---
 

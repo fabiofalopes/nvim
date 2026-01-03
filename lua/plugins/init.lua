@@ -131,4 +131,105 @@ return {
             require('plugins.configs.tidal').setup()
         end
     },
+
+    -- Snacks.nvim (Required dependency for opencode.nvim)
+    {
+        'folke/snacks.nvim',
+        priority = 1000,
+        lazy = false,
+        opts = {
+            -- Minimal configuration - opencode.nvim uses input, picker, terminal
+            bigfile = { enabled = true },
+            notifier = { enabled = true },
+            quickfile = { enabled = true },
+            statuscolumn = { enabled = false },
+            words = { enabled = false },
+        },
+    },
+
+    -- OpenCode.nvim (AI coding assistant integration)
+    {
+        'sudo-tee/opencode.nvim',
+        dependencies = {
+            'folke/snacks.nvim',
+            'nvim-lua/plenary.nvim'
+        },
+        config = function()
+            require('opencode').setup({
+                default_mode = 'build',
+                preferred_picker = 'snacks', -- Force using Snacks picker
+                keymap_prefix = '<leader>o',
+                keymap = {
+                    editor = {
+                        ['<leader>og'] = { 'toggle' },
+                        ['<leader>oi'] = { 'open_input' },
+                        ['<leader>oo'] = { 'open_output' },
+                        ['<leader>ot'] = { 'toggle_focus' },
+                        ['<leader>oq'] = { 'close' },
+                        ['<leader>os'] = { 'select_session' },
+                        ['<leader>op'] = { 'configure_provider' },
+                    },
+                },
+                -- Quick model presets for model switching
+                provider_presets = {
+                    {
+                        name = "OpenCode Zens - Minimax (FREE)",
+                        provider = "opencode",
+                        model = "minimax-m2.1-free"
+                    },
+                    {
+                        name = "OpenCode Zens - GLM (FREE)",
+                        provider = "opencode",
+                        model = "glm-4.7-free"
+                    },
+                    {
+                        name = "Google - Gemini 3 Pro",
+                        provider = "google",
+                        model = "gemini-3-pro"
+                    },
+                    {
+                        name = "Google - Gemini 3 Flash",
+                        provider = "google",
+                        model = "gemini-3-flash"
+                    },
+                    {
+                        name = "Copilot - GPT 5.1 Codex",
+                        provider = "github-copilot",
+                        model = "gpt-5.1-codex"
+                    },
+                    {
+                        name = "Copilot - Claude Sonnet 4.5",
+                        provider = "github-copilot",
+                        model = "claude-sonnet-4.5"
+                    },
+                },
+            })
+
+            -- MONKEY PATCH: Fix provider selection crashing
+            -- The plugin uses vim.ui.select which conflicts with airline
+            -- We force it to use Snacks picker instead
+            local provider = require('opencode.provider')
+            local original_select = provider.select
+            
+            provider.select = function(cb)
+                local models = provider._get_models()
+                if not models or #models == 0 then
+                    vim.notify("No models found", vim.log.levels.WARN)
+                    return
+                end
+                
+                -- Use Snacks picker
+                Snacks.picker.select(models, {
+                    prompt = "Select Model",
+                    format_item = function(item)
+                        return item.display
+                    end
+                }, function(selection)
+                    if selection then
+                        cb(selection)
+                    end
+                end)
+            end
+        end,
+    },
 }

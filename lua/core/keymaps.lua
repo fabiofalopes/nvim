@@ -44,8 +44,9 @@ keymap('n', '<leader>t8', ':lua require("core.utils").switchTab(8)<CR>', { silen
 keymap('n', '<leader>t9', ':lua require("core.utils").switchTab(9)<CR>', { silent = true, desc = 'Tab 9' })
 
 -- Create new lines above/below in normal mode
-keymap('n', '<leader>o', 'o<ESC>', { silent = true, desc = 'New line below' })
-keymap('n', '<leader>O', 'O<ESC>', { silent = true, desc = 'New line above' })
+-- Moved to <leader>n prefix to avoid conflict with OpenCode (<leader>o*)
+keymap('n', '<leader>no', 'o<ESC>', { silent = true, desc = 'New line below' })
+keymap('n', '<leader>nO', 'O<ESC>', { silent = true, desc = 'New line above' })
 
 -- Diagnostic keymaps
 keymap('n', '<leader>e', vim.diagnostic.open_float, { silent = true })
