@@ -1,3 +1,9 @@
+## Current Status (Jan 03, 2026)
+- [x] **OpenCode.nvim Integration**: Fully installed & configured (Snacks + Tmux/Split).
+- [x] **Keybindings**: Fixed & mapped to `<Space>o*` (Toggle: `<Space>og`).
+- [x] **Fixes**: Provider selection crash fixed via Snacks picker monkeypatch.
+- [ ] **Next**: Push local commits to remote & test daily workflow.
+
 # Neovim Configuration TODO
 
 ## Future Enhancements
